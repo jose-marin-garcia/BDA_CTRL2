@@ -1,4 +1,4 @@
-package grupo2.control2_bda;
+package grupo5.control2_bda;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,51 +1,52 @@
 export default {
-  css: ["@/assets/css/tailwind.css"],
-  // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
+  // Desactivar renderizado del lado del servidor (SSR)
   ssr: false,
 
-  // Target: https://go.nuxtjs.dev/config-target
+  // Objetivo de despliegue (estático en este caso)
   target: 'static',
 
-  // Global page headers: https://go.nuxtjs.dev/config-head
+  // Configuración de la cabecera HTML
   head: {
     title: 'FrontendCtrl2',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'en',
     },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' },
-      { name: 'format-detection', content: 'telephone=no' }
+      { name: 'format-detection', content: 'telephone=no' },
     ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
 
-  // Global CSS: https://go.nuxtjs.dev/config-css
+  // Ruta global de CSS
   css: [
+    '@/assets/css/tailwind.css', // Ruta al archivo tailwind.css donde importas las directivas @tailwind
   ],
 
-  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [
-  ],
+  // Plugins para ejecutar antes de renderizar la página
+  plugins: [],
 
-  // Auto import components: https://go.nuxtjs.dev/config-components
+  // Importación automática de componentes
   components: true,
 
-  // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
+  // Módulos para el desarrollo y construcción (recomendado)
   buildModules: [
+    // Agregar TailwindCSS como módulo de construcción
+    '@nuxt/postcss8',
   ],
 
-  // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [
-  ],
+  // Módulos adicionales
+  modules: [],
 
-  // Build Configuration: https://go.nuxtjs.dev/config-build
+  // Configuración de construcción
   build: {
-  }
-
-  
-
-}
+    postcss: {
+      plugins: {
+        tailwindcss: {},
+        autoprefixer: {},
+      },
+    },
+  },
+};

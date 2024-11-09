@@ -1,4 +1,5 @@
 export default {
+  css: ["@/assets/css/tailwind.css"],
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
 
@@ -44,4 +45,7 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
   }
+
+  
+
 }

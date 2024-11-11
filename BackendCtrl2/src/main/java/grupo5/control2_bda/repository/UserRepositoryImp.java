@@ -69,4 +69,20 @@ public class UserRepositoryImp implements UserRepository{
             throw new RuntimeException("Error al eliminar el usuario", e);
         }
     }
+
+    @Override
+    public User getUsuarioByEmail(String email) {
+        String queryText = "SELECT * FROM usuario WHERE email = :email";
+        try (Connection connection = sql2o.open()) {
+            System.out.println("Conexión exitosa a la base de datos");
+            User user = connection.createQuery(queryText)
+                    .addParameter("email", email)
+                    .executeAndFetchFirst(User.class);
+            return user;
+        } catch (Exception e) {
+            System.err.println("Error en la conexión a la base de datos: " + e.getMessage());
+            throw new RuntimeException("Error al obtener el cliente por email", e);
+        }
+    }
+
 }

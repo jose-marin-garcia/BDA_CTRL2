@@ -61,4 +61,18 @@ public class UsuarioService {
             throw new RuntimeException("Error al eliminar el usuario", e);
         }
     }
+
+    public User getUserByEmail(String email) {
+        try {
+            User cliente = usuarioRepository.getUsuarioByEmail(email);
+            if (cliente != null) {
+                return cliente;
+            } else {
+                throw new RuntimeException("Cliente no encontrado");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error al obtener el Cliente", e);
+        }
+    }
+
 }

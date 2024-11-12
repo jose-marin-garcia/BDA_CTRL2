@@ -4,18 +4,25 @@
         <h2>ChoreFlow</h2>
       </div>
       <div class="auth-buttons">
-        <button @click="navigateTo('/register')">Registrarse</button>
-        <button @click="navigateTo('/login')">Login</button>
+        <button v-if="!isAuthenticated" @click="navigateTo('/register')">Registrarse</button>
+        <button v-if="!isAuthenticated" @click="navigateTo('/login')">Login</button>
+        <button v-if="isAuthenticated" @click="navigateTo('/tareas')">Mis Tareas</button>
       </div>
     </nav>
   </template>
   
   <script>
   export default {
+    computed: {
+      // Comprobar si el usuario está autenticado desde el store 
+      isAuthenticated() {
+        return this.$store.state.isAuthenticated;
+      }
+    },
     methods: {
       navigateTo(path) {
         this.$router.push(path);
-      },
+      }
     },
   };
   </script>

@@ -22,6 +22,19 @@ public class TareaService {
         }
     }
 
+    public List<Tarea> getAllTareasUser(int id){
+        try {
+            List<Tarea> tareas = tareaRepository.findAllByIdUser(id);
+            if (tareas != null) {
+                return tareas;
+            } else {
+                throw new RuntimeException("Tareas no encontradas");
+            }
+        } catch (Exception e){
+            throw new RuntimeException("Error al obtener las tareas", e);
+        }
+    }
+
     public Tarea getTareaById(Long id) {
         try {
             Tarea tarea = tareaRepository.findById(id);

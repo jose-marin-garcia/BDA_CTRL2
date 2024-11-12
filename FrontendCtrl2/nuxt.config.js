@@ -1,4 +1,5 @@
 export default {
+  
   // Desactivar renderizado del lado del servidor (SSR)
   ssr: false,
 

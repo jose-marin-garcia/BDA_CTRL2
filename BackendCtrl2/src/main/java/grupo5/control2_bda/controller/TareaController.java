@@ -35,6 +35,16 @@ public class TareaController {
         }
     }
 
+    @GetMapping("/getAllUser/{id}")
+    public ResponseEntity<List<Tarea>> getAllTareasUser(@RequestParam int id){
+        try{
+            List<Tarea> Tareas = tareaService.getAllTareasUser(id);
+            return  ResponseEntity.ok(Tareas);
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Tarea> getTareaById(@PathVariable Long id) {
         try {

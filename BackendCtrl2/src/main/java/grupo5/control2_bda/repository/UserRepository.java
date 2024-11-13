@@ -8,7 +8,9 @@ import java.util.List;
 public interface UserRepository {
     List<User> findAll();
     User findById(Long id);
-    void save(User user);
+    void save(User usuario);
+    public boolean existsUser(Long id);
+    public boolean existsUserByCorreo(String correo);
     void deleteById(Long id);
     public User getUsuarioByEmail(String email);
 }

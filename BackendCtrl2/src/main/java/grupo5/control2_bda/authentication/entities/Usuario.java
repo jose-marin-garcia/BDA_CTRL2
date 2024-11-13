@@ -9,7 +9,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Data
 @AllArgsConstructor
@@ -19,7 +21,7 @@ public class Usuario implements UserDetails {
     private String name;
     private String email;
     private String password;
-    private static String ROLE = "ROLE_CLIENTE";
+    private static String ROLE = "ROLE_USER";
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -33,5 +35,12 @@ public class Usuario implements UserDetails {
 
     public static Usuario userToUsuario(User user) {
         return new Usuario(user.getId(), user.getName(), user.getEmail(), user.getPassword());
+    }
+
+    public Map<String, Object> generateExtraClaims() {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("id", id);
+        claims.put("name", name);
+        return claims;
     }
 }

@@ -8,6 +8,8 @@ public interface TareaRepository {
 
     public List<Tarea> findAllWithLimitAndOffset(int limit, int offset);
 
+    public List<Tarea> findAllByIdUser(int id);
+
     public Tarea findById(Long id);
 
     public void save(Tarea tarea);

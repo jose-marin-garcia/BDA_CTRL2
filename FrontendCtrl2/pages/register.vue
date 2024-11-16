@@ -68,10 +68,8 @@ export default {
 
       try {
         const response = await axios.post('http://localhost:8090/api/usuario/register', user); // URL del backend
-        alert(response.data); // Mostrar mensaje del servidor
-        this.name = '';
-        this.email = '';
-        this.password = '';
+        alert('Registro exitoso. Por favor, inicia sesión.'); 
+        this.$router.push('/login'); // Redirigir a la página de inicio de sesión
       } catch (error) {
         console.error(error);
         alert('Error al registrarse. Por favor, inténtalo de nuevo.');
@@ -86,5 +84,6 @@ export default {
   background-color: #f7fafc;
 }
 </style>
+
 
 

@@ -29,6 +29,7 @@ public class AuthenticationService {
         String jwtToken = jwtService.generateToken(user.generateExtraClaims(), user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .userId(user.getId())
                 .build();
     }
 }

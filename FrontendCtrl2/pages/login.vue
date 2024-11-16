@@ -37,6 +37,7 @@
   </template>
   
   <script>
+  import axios from 'axios';
   export default {
     data() {
       return {
@@ -45,9 +46,27 @@
       };
     },
     methods: {
-      register() {
-        // Aquí puedes agregar la lógica para el registro (ej. validación o llamada API)
-        console.log("Logeado:", {email: this.email, password: this.password });
+      async login() {
+        const credentials = {
+          email: this.email,
+          password: this.password,
+        };
+
+        try {
+          const response = await axios.post('http://localhost:8090/authenticate/login', credentials);
+          const { token, userId } = response.data;
+
+          // Almacena el token y el ID del usuario
+          this.$store.commit('setAuthenticated', true);
+          this.$store.commit('setUserId', userId);
+          localStorage.setItem('token', token); // Guarda el token si es necesario
+
+          alert('Inicio de sesión exitoso');
+          this.$router.push('/'); // Redirige al dashboard o vista principal
+        } catch (error) {
+          console.error(error);
+          alert('Error al iniciar sesión. Por favor, verifica tus credenciales.');
+        }
       },
     },
   };

@@ -31,7 +31,8 @@ public class SecurityConfig {
                     customizeRequests
                             .requestMatchers("/api/usuario/register").permitAll()
                             .requestMatchers("/authenticate/**").permitAll()
-                            .requestMatchers(HttpMethod.GET, "/api/usuario/**", "/api/categoria/**", "/api/cliente/**", "/api/detalleorden/**", "/api/orden").permitAll()
+                            .requestMatchers("/api/tarea/getAllUser/**").permitAll()
+                            .requestMatchers(HttpMethod.GET, "/api/usuario/**", "/api/tarea/**", "/api/cliente/**", "/api/detalleorden/**", "/api/orden").permitAll()
                             .anyRequest().authenticated();
                 })
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

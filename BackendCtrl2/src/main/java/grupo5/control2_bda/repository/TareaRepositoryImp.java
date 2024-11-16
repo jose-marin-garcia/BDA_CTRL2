@@ -30,11 +30,11 @@ public class TareaRepositoryImp implements TareaRepository {
 
     @Override
     public List<Tarea> findAllByIdUser(int id){
-        String queryText = "SELECT * FROM tarea WHERE id_usuario = id";
+        String queryText = "SELECT * FROM tarea WHERE id_usuario = :id";
         try (Connection connection = sql2o.open()){
             System.out.println("Conexion existosa a la base de datos");
             return  connection.createQuery(queryText)
-                    .addParameter("id_usuario", id)
+                    .addParameter("id", id)
                     .executeAndFetch(Tarea.class);
         } catch (Exception e){
             System.err.println("Error en la conexión a la base de datos: " + e.getMessage());

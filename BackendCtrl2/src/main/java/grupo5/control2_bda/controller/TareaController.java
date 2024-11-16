@@ -36,7 +36,7 @@ public class TareaController {
     }
 
     @GetMapping("/getAllUser/{id}")
-    public ResponseEntity<List<Tarea>> getAllTareasUser(@RequestParam int id){
+    public ResponseEntity<List<Tarea>> getAllTareasUser(@PathVariable int id){
         try{
             List<Tarea> Tareas = tareaService.getAllTareasUser(id);
             return  ResponseEntity.ok(Tareas);

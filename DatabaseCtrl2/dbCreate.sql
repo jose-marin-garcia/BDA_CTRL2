@@ -18,7 +18,8 @@ CREATE DATABASE "ctrl2bda"
 CREATE TABLE Usuario (
     id BIGSERIAL PRIMARY KEY,
     password VARCHAR(255) NOT NULL,
-    email VARCHAR(100)
+    email VARCHAR(100) NOT NULL,
+    name VARCHAR(100) NOT NULL
 );
 
 -- Creación de la tabla Tarea

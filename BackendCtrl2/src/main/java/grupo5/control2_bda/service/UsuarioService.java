@@ -41,10 +41,10 @@ public class UsuarioService {
 
     public void createUsuario(User usuario) {
         String encodedPassword = generateEncodedPassword(usuario.getPassword());
-        User newUser = new User(usuario.getId(),usuario.getName(), usuario.getEmail(), encodedPassword);
-        validateUsuario(newUser);
+        usuario.setPassword(encodedPassword);
+        validateUsuario(usuario);
         try {
-            usuarioRepository.save(newUser);
+            usuarioRepository.save(usuario);
         } catch (Exception e) {
             throw new RuntimeException("Error al crear el usuario", e);
         }
@@ -90,12 +90,16 @@ public class UsuarioService {
         Long id = user.getId();
         String correo = user.getEmail();
 
-        if(id != null && !existsVoluntario(id)){
+        if (correo == null || correo.trim().isEmpty()) {
+            throw new IllegalArgumentException("El correo no puede ser nulo o vacío");
+        }
+
+        if(id != null && !existsUser(id)){
             throw new IllegalArgumentException("No existe el voluntario");
         }
 
         if(correo != null){
-            if(existsVoluntarioByCorreo(correo)){
+            if(existsUserByCorreo(correo)){
                 throw new IllegalArgumentException("El correo ingresado ya esta registrado");
             }
 
@@ -105,18 +109,22 @@ public class UsuarioService {
         }
     }
 
-    public boolean existsVoluntario(Long idVoluntario){
+    public boolean existsUser(Long idVoluntario){
         return usuarioRepository.existsUser(idVoluntario);
     }
 
-    public boolean existsVoluntarioByCorreo(String correo){
+    public boolean existsUserByCorreo(String correo){
         return usuarioRepository.existsUserByCorreo(correo);
     }
 
     private boolean isValidCorreo(String correo){
+        System.out.println("Validando correo: " + correo);
         String regex = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(correo);
-        return matcher.matches();
+        boolean isValid = matcher.matches();
+        System.out.println("Correo válido: " + isValid);
+        return isValid;
     }
+
 }

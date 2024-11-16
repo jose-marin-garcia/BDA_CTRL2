@@ -44,20 +44,21 @@ public class UserRepositoryImp implements UserRepository{
 
     @Override
     public void save(User user) {
-        String queryText = "INSERT INTO usuario (id, name, password, email) VALUES (:id, :name, :encodedPassword, :email)";
-        try (Connection connection = sql2o.open()) {
+        String queryText = "INSERT INTO usuario (name, password, email) VALUES (:name, :password, :email)";
+        try (Connection connection = sql2o.beginTransaction()) {
             System.out.println("Conexión exitosa a la base de datos");
             connection.createQuery(queryText)
-                    .addParameter("id", user.getId())
                     .addParameter("name", user.getName())
                     .addParameter("password", user.getPassword())
                     .addParameter("email", user.getEmail())
                     .executeUpdate();
+            connection.commit();
         } catch (Exception e) {
-            System.err.println("Error en la conexión a la base de datos: " + e.getMessage());
+            System.err.println("Error al insertar usuario en la base de datos: " + e.getMessage());
             throw new RuntimeException("Error al crear el usuario", e);
         }
     }
+
 
     @Override
     public void deleteById(Long id) {
@@ -91,7 +92,6 @@ public class UserRepositoryImp implements UserRepository{
     @Override
     public boolean existsUser(Long id){
         String queryText = "SELECT EXISTS(SELECT id FROM usuario WHERE id = :id)";
-
         try(Connection connection = sql2o.open()){
             Query query = connection.createQuery(queryText)
                     .addParameter("id", id);
@@ -104,18 +104,18 @@ public class UserRepositoryImp implements UserRepository{
     }
 
     @Override
-    public boolean existsUserByCorreo(String correo){
+    public boolean existsUserByCorreo(String correo) {
         String queryText = "SELECT EXISTS(SELECT id FROM usuario WHERE email = :correo)";
 
-        try(Connection connection = sql2o.open()){
-            Query query = connection.createQuery(queryText)
-                    .addParameter("correo", correo);
-            boolean exists = query.executeAndFetchFirst(Boolean.class);
-            return exists;
-        }
-        catch (Exception e){
-            throw new RuntimeException("Ocurrio un error al realizar la query");
+        try (Connection connection = sql2o.open()) {
+            return connection.createQuery(queryText)
+                    .addParameter("correo", correo)
+                    .executeScalar(Boolean.class);
+        } catch (Exception e) {
+            throw new RuntimeException("Error en existsUserByCorreo: " + e.getMessage(), e);
         }
     }
+
+
 
 }

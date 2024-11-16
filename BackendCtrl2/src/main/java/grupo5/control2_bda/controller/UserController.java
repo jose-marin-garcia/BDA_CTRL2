@@ -43,6 +43,7 @@ public class UserController {
             usuarioService.createUsuario(usuario);
             return ResponseEntity.status(HttpStatus.CREATED).body("Usuario creado exitosamente");
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al crear el usuario");
         }
     }

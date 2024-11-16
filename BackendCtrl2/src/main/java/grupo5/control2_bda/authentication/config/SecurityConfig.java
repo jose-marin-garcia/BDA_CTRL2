@@ -29,8 +29,9 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(customizeRequests -> {
                     customizeRequests
+                            .requestMatchers("/api/usuario/register").permitAll()
                             .requestMatchers("/authenticate/**").permitAll()
-                            .requestMatchers(HttpMethod.GET, "/api/producto/**", "/api/categoria/**", "/api/cliente/**", "/api/detalleorden/**", "/api/orden").permitAll()
+                            .requestMatchers(HttpMethod.GET, "/api/usuario/**", "/api/categoria/**", "/api/cliente/**", "/api/detalleorden/**", "/api/orden").permitAll()
                             .anyRequest().authenticated();
                 })
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin
+@CrossOrigin("*")
 @RequestMapping("/api/usuario")
 public class UserController {
 
@@ -37,7 +37,7 @@ public class UserController {
         }
     }
 
-    @PostMapping
+    @PostMapping("/register")
     public ResponseEntity<String> createUsuario(@RequestBody User usuario) {
         try {
             usuarioService.createUsuario(usuario);

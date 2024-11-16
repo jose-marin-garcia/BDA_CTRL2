@@ -48,6 +48,8 @@
 </template>
 
 <script>
+import axios from 'axios'; // Importar Axios
+
 export default {
   data() {
     return {
@@ -57,9 +59,23 @@ export default {
     };
   },
   methods: {
-    register() {
-      // Aquí puedes agregar la lógica para el registro (ej. validación o llamada API)
-      console.log("Registrado:", { name: this.name, email: this.email, password: this.password });
+    async register() {
+      const user = {
+        name: this.name,
+        email: this.email,
+        password: this.password,
+      };
+
+      try {
+        const response = await axios.post('http://localhost:8090/api/usuario/register', user); // URL del backend
+        alert(response.data); // Mostrar mensaje del servidor
+        this.name = '';
+        this.email = '';
+        this.password = '';
+      } catch (error) {
+        console.error(error);
+        alert('Error al registrarse. Por favor, inténtalo de nuevo.');
+      }
     },
   },
 };
@@ -71,27 +87,4 @@ export default {
 }
 </style>
 
-  
-<script>
-  export default {
-    data() {
-      return {
-        name: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-      };
-    },
-    methods: {
-      submitForm() {
-        if (this.password !== this.confirmPassword) {
-          alert('Las contraseñas no coinciden');
-          return;
-        }
-        // Procesa el registro aquí (por ejemplo, enviar los datos a una API)
-        alert(`Registrado exitosamente con el correo ${this.email}`);
-      },
-    },
-  };
-</script>
-  
+

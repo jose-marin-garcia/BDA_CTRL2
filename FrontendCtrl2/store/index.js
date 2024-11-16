@@ -1,33 +1,37 @@
 
 // Con persistencia
 export const state = () => ({
-    isAuthenticated: localStorage.getItem('isAuthenticated') === 'true', // Recupera el estado del almacenamiento
-    user: JSON.parse(localStorage.getItem('user')), // Por si queremos mantener datos del usuario
-  });
-  
-  export const mutations = {
-    setAuthenticated(state, status) {
-      state.isAuthenticated = status;
-      localStorage.setItem('isAuthenticated', status); // Guarda en localStorage
-    },
-    setUser(state, userData) {
-      state.user = userData;
-      localStorage.setItem('user', JSON.stringify(userData)); // Guarda los datos del usuario en localStorage
-    },
-  };
-  
-  export const actions = {
-    login({ commit }, userData) {
-      // Aqui hacemos uso de nuestra api JWT
-      commit('setAuthenticated', true);
-      commit('setUser', userData);
-    },
-    logout({ commit }) {
-      commit('setAuthenticated', false);
-      commit('setUser', null);
-      localStorage.removeItem('isAuthenticated'); // Limpia el almacenamiento
-      localStorage.removeItem('user');
-    },
-  };
+  isAuthenticated: localStorage.getItem('isAuthenticated') === 'true', // Recupera el estado de autenticación
+  userId: localStorage.getItem('userId'), // Recupera solo la ID del usuario
+});
+
+export const mutations = {
+  setAuthenticated(state, status) {
+    state.isAuthenticated = status;
+    localStorage.setItem('isAuthenticated', status); // Guarda en localStorage
+  },
+  setUserId(state, userId) {
+    state.userId = userId;
+    if (userId) {
+      localStorage.setItem('userId', userId); // Guarda la ID del usuario en localStorage
+    } else {
+      localStorage.removeItem('userId'); // Limpia si no hay ID
+    }
+  },
+};
+
+export const actions = {
+  login({ commit }, userData) {
+    // Aquí recibimos los datos del usuario tras la autenticación
+    commit('setAuthenticated', true);
+    commit('setUserId', userData.id); // Guardamos solo la ID del usuario
+  },
+  logout({ commit }) {
+    commit('setAuthenticated', false);
+    commit('setUserId', null); // Limpiamos la ID del usuario
+    localStorage.removeItem('isAuthenticated'); // Limpia el almacenamiento
+  },
+};
+
   
   

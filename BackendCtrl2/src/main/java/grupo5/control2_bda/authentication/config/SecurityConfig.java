@@ -30,6 +30,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(customizeRequests -> {
                     customizeRequests
                             .requestMatchers("/api/usuario/register").permitAll()
+                            .requestMatchers(HttpMethod.POST,"/api/tarea").permitAll()
+                            .requestMatchers(HttpMethod.PUT,"/api/tarea/**").permitAll()
+                            .requestMatchers(HttpMethod.DELETE,"/api/tarea/**").permitAll()
                             .requestMatchers("/authenticate/**").permitAll()
                             .requestMatchers("/api/tarea/getAllUser/**").permitAll()
                             .requestMatchers(HttpMethod.GET, "/api/usuario/**", "/api/tarea/**", "/api/cliente/**", "/api/detalleorden/**", "/api/orden").permitAll()

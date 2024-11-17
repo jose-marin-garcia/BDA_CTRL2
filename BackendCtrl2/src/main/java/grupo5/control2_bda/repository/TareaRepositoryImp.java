@@ -59,7 +59,7 @@ public class TareaRepositoryImp implements TareaRepository {
 
     @Override
     public void save(Tarea tarea) {
-        String queryText = "INSERT INTO tarea (titulo, descripcion, fechaVencimiento, estado, fechaCreacion, id_usuario) VALUES (:titulo, :descripcion, :fechaVencimiento, :estado, :fechaCreacion, :usuarioId)";
+        String queryText = "INSERT INTO tarea (titulo, descripcion, fechaVencimiento, estado, fechaCreacion, fechaCompletada, id_usuario) VALUES (:titulo, :descripcion, :fechaVencimiento, :estado, :fechaCreacion, :fechaCompletada, :usuarioId)";
         try (Connection connection = sql2o.open()) {
             System.out.println("Conexión exitosa a la base de datos");
             connection.createQuery(queryText)
@@ -68,11 +68,29 @@ public class TareaRepositoryImp implements TareaRepository {
                     .addParameter("fechaVencimiento", tarea.getFechaVencimiento())
                     .addParameter("estado", tarea.getEstado())
                     .addParameter("fechaCreacion", tarea.getFechaCreacion())
+                    .addParameter("fechaCompletada", tarea.getFechaCompletada())
                     .addParameter("usuarioId", tarea.getId_usuario())
                     .executeUpdate();
         } catch (Exception e) {
             System.err.println("Error en la conexión a la base de datos: " + e.getMessage());
             throw new RuntimeException("Error al crear la tarea", e);
+        }
+    }
+
+    @Override
+    public void updateTarea(Tarea tarea) {
+        String queryText = "UPDATE tarea SET titulo = :titulo, descripcion = :descripcion, fechaVencimiento = :fechaVencimiento, " +
+                "estado = :estado WHERE id = :id";
+        try (Connection connection = sql2o.open()) {
+            connection.createQuery(queryText)
+                    .addParameter("titulo", tarea.getTitulo())
+                    .addParameter("descripcion", tarea.getDescripcion())
+                    .addParameter("fechaVencimiento", tarea.getFechaVencimiento())
+                    .addParameter("estado", tarea.getEstado())
+                    .addParameter("id", tarea.getId())
+                    .executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException("Error al actualizar la tarea", e);
         }
     }
 

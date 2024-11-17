@@ -56,7 +56,8 @@
       },
       async editarTarea() {
         try {
-          await axios.put(`http://localhost:8090/api/tarea/${this.tarea.id}`, this.tarea);
+          const tareaId = this.$route.params.id;
+          await axios.put(`http://localhost:8090/api/tarea/${tareaId}`, this.tarea);
           this.$router.push('/tareas'); // Redirige a la página de tareas después de editar
         } catch (error) {
           console.error('Error al editar tarea:', error);

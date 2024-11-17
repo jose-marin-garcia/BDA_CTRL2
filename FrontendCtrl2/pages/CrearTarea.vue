@@ -41,12 +41,16 @@ export default {
   methods: {
     async crearTarea() {
       try {
+        const formattedFechaVencimiento = new Date(this.fechaVencimiento).toISOString();
+        const fecha = new Date().toISOString();
+
         const tarea = {
           titulo: this.titulo,
           descripcion: this.descripcion,
-          fechaVencimiento: this.fechaVencimiento,
+          fechaVencimiento: formattedFechaVencimiento,
           estado: "pendiente",
-          fechaCreacion: new Date().toISOString(),
+          fechaCreacion: fecha,
+          fechaCompletada: fecha,
           id_usuario: this.$store.state.userId,
         };
 

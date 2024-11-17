@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS Tarea (
     id BIGSERIAL PRIMARY KEY,
     titulo VARCHAR(100) NOT NULL,
     descripcion TEXT,
-    fechaVencimiento DATE,
+    fechaVencimiento TIMESTAMP,
     estado VARCHAR(20) CHECK (estado IN ('pendiente', 'completada')) DEFAULT 'pendiente',
     fechaCreacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     fechaCompletada TIMESTAMP,

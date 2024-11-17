@@ -58,8 +58,7 @@ public class TareaService {
 
     public void updateTarea(Tarea tarea) {
         try {
-            getTareaById(tarea.getId());
-            tareaRepository.save(tarea);
+            tareaRepository.updateTarea(tarea);
         } catch (Exception e) {
             throw new RuntimeException("Error al actualizar la tarea", e);
         }

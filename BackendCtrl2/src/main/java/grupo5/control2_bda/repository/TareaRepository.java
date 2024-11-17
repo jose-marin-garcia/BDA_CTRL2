@@ -14,6 +14,8 @@ public interface TareaRepository {
 
     public void save(Tarea tarea);
 
+    public void updateTarea(Tarea tarea);
+
     public void deleteById(Long id);
 
     public long getTotalCount();

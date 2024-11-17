@@ -1,9 +1,7 @@
--------------------------------------------------------
--- Crear ctrl2bda
--- Database: ctrl2bda
--------------------------------------------------------
+-- Eliminar la base de datos si existe
 DROP DATABASE IF EXISTS "ctrl2bda";
 
+-- Crear la base de datos
 CREATE DATABASE "ctrl2bda"
     WITH
     OWNER = postgres
@@ -12,18 +10,21 @@ CREATE DATABASE "ctrl2bda"
     LC_CTYPE = 'Spanish_Chile.1252'
     TABLESPACE = pg_default
     CONNECTION LIMIT = -1
-    IS_TEMPLATE = False;
+    TEMPLATE template0;
 
--- Creación de la tabla Usuario
-CREATE TABLE Usuario (
+-- Cambiar a la base de datos recién creada
+\c ctrl2bda
+
+-- Crear la tabla Usuario
+CREATE TABLE IF NOT EXISTS Usuario (
     id BIGSERIAL PRIMARY KEY,
     password VARCHAR(255) NOT NULL,
     email VARCHAR(100) NOT NULL,
     name VARCHAR(100) NOT NULL
 );
 
--- Creación de la tabla Tarea
-CREATE TABLE Tarea (
+-- Crear la tabla Tarea
+CREATE TABLE IF NOT EXISTS Tarea (
     id BIGSERIAL PRIMARY KEY,
     titulo VARCHAR(100) NOT NULL,
     descripcion TEXT,
@@ -35,8 +36,8 @@ CREATE TABLE Tarea (
     FOREIGN KEY (id_usuario) REFERENCES Usuario(id) ON DELETE CASCADE
 );
 
--- Creación de la tabla Notificacion
-CREATE TABLE Notificacion (
+-- Crear la tabla Notificacion
+CREATE TABLE IF NOT EXISTS Notificacion (
     id BIGSERIAL PRIMARY KEY,
     id_usuario BIGINT NOT NULL,
     id_tarea BIGINT NOT NULL,
@@ -46,8 +47,8 @@ CREATE TABLE Notificacion (
     FOREIGN KEY (id_tarea) REFERENCES Tarea(id) ON DELETE CASCADE
 );
 
--- Índices para mejorar el rendimiento en búsquedas comunes
-CREATE INDEX idx_usuario_username ON Usuario(id);
-CREATE INDEX idx_tarea_usuarioId ON Tarea(id_usuario);
-CREATE INDEX idx_notificacion_usuarioId ON Notificacion(id_usuario);
-CREATE INDEX idx_notificacion_tareaId ON Notificacion(id_tarea);
+-- Crear índices
+CREATE INDEX IF NOT EXISTS idx_usuario_username ON Usuario(id);
+CREATE INDEX IF NOT EXISTS idx_tarea_usuarioId ON Tarea(id_usuario);
+CREATE INDEX IF NOT EXISTS idx_notificacion_usuarioId ON Notificacion(id_usuario);
+CREATE INDEX IF NOT EXISTS idx_notificacion_tareaId ON Notificacion(id_tarea);

@@ -48,6 +48,19 @@ public class TareaService {
         }
     }
 
+    public List<Tarea> getExpiringTareasByIdUser(int id) {
+        try {
+            List<Tarea> tareas = tareaRepository.findExpiringTareasByIdUser(id);
+            if (tareas != null) {
+                return tareas;
+            } else {
+                throw new RuntimeException("No hay tareas por vencer");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error al obtener las tareas", e);
+        }
+    }
+
     public void createTarea(Tarea tarea) {
         try {
             tareaRepository.save(tarea);
@@ -61,6 +74,14 @@ public class TareaService {
             tareaRepository.updateTarea(tarea);
         } catch (Exception e) {
             throw new RuntimeException("Error al actualizar la tarea", e);
+        }
+    }
+
+    public void completeTarea(Long id) {
+        try {
+            tareaRepository.completeTarea(id);
+        } catch (Exception e) {
+            throw new RuntimeException("Error al completar la tarea", e);
         }
     }
 

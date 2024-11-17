@@ -29,9 +29,17 @@
           <td class="py-2 px-4 border-b">{{ formatDate(tarea.fechaVencimiento) }}</td>
           <td class="py-2 px-4 border-b">{{ tarea.estado }}</td>
           <td class="py-2 px-4 border-b">
-            <router-link :to="`/EditarTarea/${tarea.id}`" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-              Editar
-            </router-link>
+            <div>
+              <router-link :to="`/EditarTarea/${tarea.id}`" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                Editar
+              </router-link>
+              <button @click="eliminarTarea(tarea.id)" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
+                Eliminar
+              </button>
+              <button @click="completarTarea(tarea.id)" class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+                Completar
+              </button>
+            </div>
           </td>
         </tr>
       </tbody>
@@ -78,6 +86,26 @@ export default {
       return `${date.getDate()}/${
         date.getMonth() + 1
       }/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
+    },
+    async eliminarTarea(tareaId) {
+      if (!confirm("¿Estás seguro de que deseas eliminar esta tarea?")) {
+        return;
+      }
+
+      try {
+        await axios.delete(`http://localhost:8090/api/tarea/${tareaId}`);
+        this.fetchTareas();
+      } catch (error) {
+        console.error("Error al eliminar tarea:", error);
+      }
+    },
+    async completarTarea(tareaId) {
+      try {
+        await axios.put(`http://localhost:8090/api/tarea/complete/${tareaId}`);
+        this.fetchTareas();
+      } catch (error) {
+        console.error("Error al completar tarea:", error);
+      }
     },
   },
   mounted() {

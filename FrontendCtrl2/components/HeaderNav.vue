@@ -6,6 +6,7 @@
     <div class="auth-buttons">
       <button v-if="!isAuthenticated" @click="navigateTo('/register')">Registrarse</button>
       <button v-if="!isAuthenticated" @click="navigateTo('/login')">Login</button>
+      <button v-if="isAuthenticated" @click="navigateTo('/notification')">Notificaciones</button>
       <button v-if="isAuthenticated" @click="navigateTo('/tareas')">Mis Tareas</button>
       <button v-if="isAuthenticated" @click="logout" class="logout-button">Cerrar sesión</button>
     </div>

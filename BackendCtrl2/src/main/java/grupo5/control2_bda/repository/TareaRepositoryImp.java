@@ -58,6 +58,22 @@ public class TareaRepositoryImp implements TareaRepository {
     }
 
     @Override
+    public List<Tarea> findExpiringTareasByIdUser(int id) {
+        String queryText = "SELECT * FROM tarea WHERE id_usuario = :id AND " +
+                "fechavencimiento BETWEEN NOW() AND NOW() + '7 days' " +
+                "ORDER BY fechavencimiento ASC";
+        try (Connection connection = sql2o.open()) {
+            System.out.println("Conexion exitosa a la base de datos");
+            return connection.createQuery(queryText)
+                    .addParameter("id", id)
+                    .executeAndFetch(Tarea.class);
+        } catch (Exception e) {
+            System.err.println("Error en la conexion a la base de datos: " + e.getMessage());
+            throw new RuntimeException("Error al obtener tareas", e);
+        }
+    }
+
+    @Override
     public void save(Tarea tarea) {
         String queryText = "INSERT INTO tarea (titulo, descripcion, fechaVencimiento, estado, fechaCreacion, fechaCompletada, id_usuario) VALUES (:titulo, :descripcion, :fechaVencimiento, :estado, :fechaCreacion, :fechaCompletada, :usuarioId)";
         try (Connection connection = sql2o.open()) {
@@ -91,6 +107,19 @@ public class TareaRepositoryImp implements TareaRepository {
                     .executeUpdate();
         } catch (Exception e) {
             throw new RuntimeException("Error al actualizar la tarea", e);
+        }
+    }
+
+    @Override
+    public void completeTarea(Long id) {
+        String queryText = "UPDATE tarea SET estado = 'completada' WHERE id = :id";
+        try (Connection connection = sql2o.beginTransaction()) {
+            connection.createQuery(queryText)
+                    .addParameter("id", id)
+                    .executeUpdate();
+            connection.commit();
+        } catch (Exception e) {
+            throw new RuntimeException("Error al completar la tarea", e);
         }
     }
 

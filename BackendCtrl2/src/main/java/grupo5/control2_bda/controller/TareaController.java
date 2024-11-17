@@ -55,6 +55,16 @@ public class TareaController {
         }
     }
 
+    @GetMapping("/getExpiringById/{id}")
+    public ResponseEntity<List<Tarea>> getExpiringTareasByIdUser(@PathVariable int id) {
+        try{
+            List<Tarea> Tareas = tareaService.getExpiringTareasByIdUser(id);
+            return ResponseEntity.ok(Tareas);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
     @PostMapping
     public ResponseEntity<String> createTarea(@RequestBody Tarea tarea) {
         try {
@@ -73,6 +83,16 @@ public class TareaController {
             return ResponseEntity.ok("Tarea actualizada exitosamente");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al actualizar la tarea");
+        }
+    }
+
+    @PutMapping("/complete/{id}")
+    public ResponseEntity<String> completeTarea(@PathVariable Long id) {
+        try {
+            tareaService.completeTarea(id);
+            return ResponseEntity.ok("Tarea completada exitosamente");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al completar la tarea");
         }
     }
 

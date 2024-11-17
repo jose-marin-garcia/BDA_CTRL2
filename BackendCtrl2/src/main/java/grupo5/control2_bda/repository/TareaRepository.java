@@ -12,9 +12,13 @@ public interface TareaRepository {
 
     public Tarea findById(Long id);
 
+    public List<Tarea> findExpiringTareasByIdUser(int id);
+
     public void save(Tarea tarea);
 
     public void updateTarea(Tarea tarea);
+
+    public void completeTarea(Long id);
 
     public void deleteById(Long id);
 

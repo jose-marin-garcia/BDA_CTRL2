@@ -19,4 +19,6 @@ public interface TareaRepository {
     public void deleteById(Long id);
 
     public long getTotalCount();
+
+    List<Tarea> getTareaByString(String string, Long id_usuario);
 }

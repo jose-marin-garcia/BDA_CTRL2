@@ -11,6 +11,16 @@
         Volver al inicio
       </router-link>
     </div>
+    <!-- Barra de búsqueda -->
+    <div class="mb-6">
+      <input
+        type="text"
+        v-model="searchQuery"
+        @input="searchTareas"
+        placeholder="Buscar tarea por título o descripcion..."
+        class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+    </div>
 
     <table class="min-w-full table-auto border-collapse border border-gray-300">
       <thead>
@@ -46,6 +56,7 @@ export default {
   data() {
     return {
       tareas: [], // Lista de tareas
+      searchQuery: "",
       loading: false, // Estado de carga
       error: null, // Error de la solicitud
     };
@@ -68,6 +79,24 @@ export default {
         this.tareas = response.data;
       } catch (error) {
         this.error = "Hubo un error al cargar las tareas.";
+        console.error(error);
+      } finally {
+        this.loading = false;
+      }
+    },
+    async searchTareas() {
+      if (!this.searchQuery.trim()) {
+        // Si no hay texto en el campo de búsqueda, carga todas las tareas
+        await this.fetchTareas();
+        return;
+      }
+
+      this.loading = true;
+      try {
+        const response = await axios.get(`http://localhost:8090/api/tarea/search/${this.searchQuery}/${this.usuarioId}`);
+        this.tareas = response.data;
+      } catch (error) {
+        this.error = "Hubo un error al buscar las tareas.";
         console.error(error);
       } finally {
         this.loading = false;

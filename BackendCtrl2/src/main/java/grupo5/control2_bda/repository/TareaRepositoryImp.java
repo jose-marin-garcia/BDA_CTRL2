@@ -148,4 +148,20 @@ public class TareaRepositoryImp implements TareaRepository {
             throw new RuntimeException("Error al obtener el total de tareas", e);
         }
     }
+
+    @Override
+    public List<Tarea> getTareaByString(String string, Long id_usuario) {
+        String queryText = "SELECT * FROM tarea WHERE id_usuario = :id_usuario AND (titulo LIKE :string OR descripcion LIKE :string)";
+        try (Connection connection = sql2o.open()) {
+            System.out.println("Conexión exitosa a la base de datos");
+            return connection.createQuery(queryText)
+                    .addParameter("string", "%" + string + "%")
+                    .addParameter("id_usuario", id_usuario)
+                    .executeAndFetch(Tarea.class);
+        } catch (Exception e) {
+            System.err.println("Error en la conexión a la base de datos: " + e.getMessage());
+            throw new RuntimeException("Error al obtener tareas", e);
+        }
+    }
+
 }

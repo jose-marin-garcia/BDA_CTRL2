@@ -65,6 +65,16 @@ public class TareaController {
         }
     }
 
+    @GetMapping("search/{string}/{id}")
+    ResponseEntity<List<Tarea>> getTareaByString(@PathVariable String string, @PathVariable Long id){
+        try{
+            List<Tarea> tarea = tareaService.getTareaByString(string, id);
+            return ResponseEntity.ok(tarea);
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
     @PostMapping
     public ResponseEntity<String> createTarea(@RequestBody Tarea tarea) {
         try {

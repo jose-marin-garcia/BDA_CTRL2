@@ -101,4 +101,12 @@ public class TareaService {
             throw new RuntimeException("Error al obtener el total de tareas", e);
         }
     }
+
+    public List<Tarea> getTareaByString(String string, Long id_usuario) {
+        try{
+            return tareaRepository.getTareaByString(string, id_usuario);
+        } catch (Exception e){
+            throw new RuntimeException("Error al buscar la tarea", e);
+        }
+    }
 }

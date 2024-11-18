@@ -60,7 +60,8 @@ public class TareaRepositoryImp implements TareaRepository {
     @Override
     public List<Tarea> findExpiringTareasByIdUser(int id) {
         String queryText = "SELECT * FROM tarea WHERE id_usuario = :id AND " +
-                "fechavencimiento BETWEEN NOW() AND NOW() + '7 days' " +
+                "fechavencimiento BETWEEN NOW() AND NOW() + '7 days' AND " +
+                "estado = 'pendiente' " +
                 "ORDER BY fechavencimiento ASC";
         try (Connection connection = sql2o.open()) {
             System.out.println("Conexion exitosa a la base de datos");

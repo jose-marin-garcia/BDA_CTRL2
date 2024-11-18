@@ -8,7 +8,7 @@ Pasos para correr el programa
 
 3.- En la consola hay que ejecutar este comando : psql -U "el nombre de usuario con el cual se instalo postgres" -h localhost -f dbCreate.sql
 
-4.- Ahora en intelliv abra la carpeta BackendCtrl2 y edite application.properties.
+4.- Ahora en intelliJ abra la carpeta BackendCtrl2 y edite application.properties.
 
 5.- Dentro de las variables hay que escribir: 
 
@@ -22,4 +22,5 @@ Pasos para correr el programa
 
 7.- Ahora en visual estudio abra la carpeta FrontendCtrl2.
 
-8.- Para iniciar el frontend dentro de la consola escriba "npm run dev" y con ctrl + click izquierdo abra la direccion de localhost
+8.- Para iniciar el frontend dentro de la consola escriba "npm run dev". En caso de que se encuentren vulnerabilidades o similar por versiones distinas,
+ejecute "npm audit fix" como se indica en la consola. Luego con ctrl + click izquierdo abra la direccion de localhost.

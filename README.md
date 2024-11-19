@@ -12,9 +12,9 @@ Pasos para correr el programa
 
 5.- Dentro de las variables hay que escribir: 
 
-- DB_URL=jdbc:postgresql://localhost:5432/ctrl2bda;
+- DB_URL=jdbc:postgresql://localhost:5432/ctrl2bda
 
-- USER="el nombre de usuario con el cual se instalo postgres";
+- USER="el nombre de usuario con el cual se instalo postgres"
 
 - PASSWORD="La contraseña con el cual se instalo postgres"
 

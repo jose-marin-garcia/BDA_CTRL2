@@ -13,32 +13,19 @@
     </div>
     <!-- Barra de búsqueda -->
     <div class="mb-6">
-      <input
-        type="text"
-        v-model="searchQuery"
-        @input="searchTareas"
+      <input type="text" v-model="searchQuery" @input="searchTareas"
         placeholder="Buscar tarea por título o descripcion..."
-        class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
+        class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
     </div>
     <!-- Botones para filtrar tareas por estado -->
     <div class="mb-6">
-      <button
-        @click="filterTareas('pendiente')"
-        class="px-6 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600"
-      >
+      <button @click="filterTareas('pendiente')" class="px-6 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600">
         Pendientes
       </button>
-      <button
-        @click="filterTareas('completada')"
-        class="px-6 py-2 bg-green-500 text-white rounded hover:bg-green-600"
-      >
+      <button @click="filterTareas('completada')" class="px-6 py-2 bg-green-500 text-white rounded hover:bg-green-600">
         Completadas
       </button>
-      <button
-        @click="clearFilter"
-        class="px-6 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
-      >
+      <button @click="clearFilter" class="px-6 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
         Limpiar Filtro
       </button>
     </div>
@@ -61,13 +48,14 @@
           <td class="py-2 px-4 border-b">{{ tarea.estado }}</td>
           <td class="py-2 px-4 border-b">
             <div>
-              <router-link :to="`/EditarTarea/${tarea.id}`" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+              <button @click="editarTarea(tarea.id)" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
                 Editar
-              </router-link>
+              </button>
               <button @click="eliminarTarea(tarea.id)" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
                 Eliminar
               </button>
-              <button @click="completarTarea(tarea.id)" class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+              <button @click="completarTarea(tarea.id)"
+                class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
                 Completar
               </button>
             </div>
@@ -140,9 +128,11 @@ export default {
     },
     formatDate(dateString) {
       const date = new Date(dateString);
-      return `${date.getDate()}/${
-        date.getMonth() + 1
-      }/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
+      return `${date.getDate()}/${date.getMonth() + 1
+        }/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
+    },
+    editarTarea(id) {
+      this.$router.push(`/EditarTarea/${id}`);
     },
     async eliminarTarea(tareaId) {
       if (!confirm("¿Estás seguro de que deseas eliminar esta tarea?")) {

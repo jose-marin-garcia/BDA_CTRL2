@@ -30,23 +30,23 @@
       </button>
     </div>
 
-    <table class="min-w-full table-auto border-collapse border border-gray-300">
+    <table class="table-auto w-full border-collapse border border-gray-300">
       <thead>
         <tr class="bg-gray-200">
-          <th class="py-2 px-4 border-b">Título</th>
-          <th class="py-2 px-4 border-b">Descripción</th>
-          <th class="py-2 px-4 border-b">Fecha de Vencimiento</th>
-          <th class="py-2 px-4 border-b">Estado</th>
-          <th class="py-2 px-4 border-b">Acciones</th>
+          <th class="py-2 px-4 border-b text-center">Título</th>
+          <th class="py-2 px-4 border-b text-center">Descripción</th>
+          <th class="py-2 px-4 border-b text-center">Fecha de Vencimiento</th>
+          <th class="py-2 px-4 border-b text-center">Estado</th>
+          <th class="py-2 px-4 border-b text-center">Acciones</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="tarea in tareas" :key="tarea.id">
-          <td class="py-2 px-4 border-b">{{ tarea.titulo }}</td>
-          <td class="py-2 px-4 border-b">{{ tarea.descripcion }}</td>
-          <td class="py-2 px-4 border-b">{{ formatDate(tarea.fechaVencimiento) }}</td>
-          <td class="py-2 px-4 border-b">{{ tarea.estado }}</td>
-          <td class="py-2 px-4 border-b">
+          <td class="py-2 px-4 border-b text-center">{{ tarea.titulo }}</td>
+          <td class="py-2 px-4 border-b text-center">{{ tarea.descripcion }}</td>
+          <td class="py-2 px-4 border-b text-center">{{ formatDate(tarea.fechaVencimiento) }}</td>
+          <td class="py-2 px-4 border-b text-center">{{ tarea.estado }}</td>
+          <td class="py-2 px-4 border-b text-center">
             <div>
               <button @click="editarTarea(tarea.id)" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
                 Editar

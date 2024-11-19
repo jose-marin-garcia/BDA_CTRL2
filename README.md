@@ -12,9 +12,9 @@ Pasos para correr el programa
 
 5.- Dentro de las variables hay que escribir: 
 
-- DB_URL=jdbc:postgresql://localhost:5432/ctrl2bda;
+- DB_URL=jdbc:postgresql://localhost:5432/ctrl2bda
 
-- USER="el nombre de usuario con el cual se instalo postgres";
+- USER="el nombre de usuario con el cual se instalo postgres"
 
 - PASSWORD="La contraseña con el cual se instalo postgres"
 
@@ -22,5 +22,8 @@ Pasos para correr el programa
 
 7.- Ahora en visual estudio abra la carpeta FrontendCtrl2.
 
-8.- Para iniciar el frontend dentro de la consola escriba "npm run dev". En caso de que se encuentren vulnerabilidades o similar por versiones distinas,
-ejecute "npm audit fix" como se indica en la consola. Luego con ctrl + click izquierdo abra la direccion de localhost.
+8.- En la consola ejecute este comando "npm install --legacy-peer-deps" (para que se instale nuxt)
+
+9.- Luego en la consola ejecute este comando "npm audit fix --force"
+
+10.- Para iniciar el frontend dentro de la consola escriba "npm run dev" luego con ctrl + click izquierdo abra la direccion "(http://localhost:3000/)".

@@ -1,0 +1,18 @@
+La aplicación se implementó utilizando Spring y Maven para el backend y Vue para el frontend.
+Requisitos funcionales:
+Registro de usuarios: Para registrar usuarios se creó una tabla en la base de datos llamada Usuario con nombre, contraseña y password. Para hacer un login de usuario se creó un módulo authentication que se encarga de todos los requisitos de seguridad para el inicio de sesión.
+
+Gestión de tareas: 
+	Crear tareas: para crear nuevas tareas, se creó una nueva tabla en la base de datos llamada Tarea que contiene título, descripción, fecha de vencimiento, estado (pendiente o completada), fecha de creación, fecha de completación e id de usuario, la cual es una llave foránea a la tabla Usuario
+
+	Editar tareas: Para editar tareas, se creó el método updateTarea modifica los datos de una tupla de la tarea basado en una id.
+	
+	Eliminar tareas: Para eliminar tareas, se creó el método deleteTarea que elimina la tarea según la id recibida.
+
+	Marcar tareas como completadas: Similar a updateTarea, se creó un método para modificar, en este caso solo la columna del estado de la tarea.
+
+	Ver lista de Tareas: se creó un método llamado getAllTareasByUser que devuelve todas las tareas de un usuario en específico.
+
+Filtros y Búsqueda: Se creó el método getTareaByString que devuelve todas las tareas de un usuario que tengan de substring el string de búsqueda que pone el usuario y en el frontend se agregaron los botones completadas o pendientes que filtran las tareas con el estado correspondiente.
+
+Notificaciones: Para las notificaciones se implementó una vista en el frontend que obtiene todas las tareas del usuario que vencen en una semana.

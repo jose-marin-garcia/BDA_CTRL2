@@ -36,19 +36,6 @@ CREATE TABLE IF NOT EXISTS Tarea (
     FOREIGN KEY (id_usuario) REFERENCES Usuario(id) ON DELETE CASCADE
 );
 
--- Crear la tabla Notificacion
-CREATE TABLE IF NOT EXISTS Notificacion (
-    id BIGSERIAL PRIMARY KEY,
-    id_usuario BIGINT NOT NULL,
-    id_tarea BIGINT NOT NULL,
-    fechaEnvio TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    tipo VARCHAR(50) NOT NULL,
-    FOREIGN KEY (id_usuario) REFERENCES Usuario(id) ON DELETE CASCADE,
-    FOREIGN KEY (id_tarea) REFERENCES Tarea(id) ON DELETE CASCADE
-);
-
 -- Crear índices
 CREATE INDEX IF NOT EXISTS idx_usuario_username ON Usuario(id);
 CREATE INDEX IF NOT EXISTS idx_tarea_usuarioId ON Tarea(id_usuario);
-CREATE INDEX IF NOT EXISTS idx_notificacion_usuarioId ON Notificacion(id_usuario);
-CREATE INDEX IF NOT EXISTS idx_notificacion_tareaId ON Notificacion(id_tarea);
